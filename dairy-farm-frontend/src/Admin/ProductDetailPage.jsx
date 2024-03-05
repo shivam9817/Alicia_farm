@@ -29,19 +29,22 @@ const ProductDetail = ({ product, handleEdit, handleDelete }) => {
   const [editable, setEditable] = useState(false);
   const [editedProduct, setEditedProduct] = useState({ ...product });
 
-  const handleEditClick = () => {
+  const handleEditClick = (e) => {
+    e.preventDefault();
     console.log('Product:-', product);
     setEditable(true);
     setEditedProduct({ ...product });
     editDisclosure.onOpen();
   };
 
-  const handleCancelEdit = () => {
+  const handleCancelEdit = (e) => {
+    e.preventDefault();
     setEditable(false);
     editDisclosure.onClose();
   };
 
-  const handleSaveEdit = async () => {
+  const handleSaveEdit = async (e) => {
+    e.preventDefault();
     try {
       if (!editedProduct._id) {
         console.error('Product id is undefined');
@@ -63,52 +66,55 @@ const ProductDetail = ({ product, handleEdit, handleDelete }) => {
         setEditable(false);
         editDisclosure.onClose();
         toast({
-          title:- 'Product Updated',
-          description:- 'Product updated successfully!',
-          status:- 'success',
-          duration:- 3000,
-          isClosable:- true,
+          title: 'Product Updated',
+          description: 'Product updated successfully!',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
         });
       } else {
-        console.error('Failed to update product:-', response.data);
+        console.error('Failed to update product:', response.data);
       }
     } catch (error) {
-      console.error('Error updating product:-', error);
+      console.error('Error updating product:', error);
     }
   };
+
 
   const handleChange = (e) => {
     e.preventDefault();
     setEditedProduct({
       ...editedProduct,
-      [e.target.name]:e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
     deleteDisclosure.onOpen();
   };
 
-  const handleConfirmDelete = async () => {
+  const handleConfirmDelete = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.delete(`${process.env.React_App_Baseurl}/product/delete/${product._id}`,{
-      method: "DELETE",    
-      headers: {
-            "Content-Type": "application/json",
-            authorization: `${localStorage.getItem("access_token")}`
-          },
-        }
+      const response = await axios.delete(`${process.env.React_App_Baseurl}/product/delete/${product._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `${localStorage.getItem("access_token")}`
+        },
+      }
       );
 
       if (response.status === 200) {
         handleDelete(product._id);
         deleteDisclosure.onClose();
         toast({
-          title:- 'Product Deleted',
-          description:- 'Product deleted successfully!',
-          status:- 'success',
-          duration:- 3000,
-          isClosable:- true,
+          title: 'Product Deleted',
+          description: 'Product deleted successfully!',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
         });
       } else {
         console.error('Failed to delete product:-', response.data);
@@ -132,33 +138,33 @@ const ProductDetail = ({ product, handleEdit, handleDelete }) => {
         color={"white"}
       >
         <Flex>
-        <Image src={product.image} alt={product.desc} w="50%" objectFit='cover' margin={"auto"} />
-        <Box p={4} w={"50%"}>
-        <Heading fontSize='lg' mt={2} mb={4}>
-          Name:- {product.name}
-        </Heading>
-        <Box mt={2}>
-          <span style={{fontWeight:"bold"}}>Category:-</span> {product.categories}
-        </Box>
-        <Box mt={2}>
-          <span style={{fontWeight:"bold"}}>Price:-</span> ₹{product.price}
-          </Box>
-        <Box mt={2}>
-          <span style={{fontWeight:"bold"}}>Offer Price:-</span> ₹{product.o_price}
-       </Box>
+          <Image src={product.image} alt={product.desc} w="50%" objectFit='cover' margin={"auto"} />
+          <Box p={4} w={"50%"}>
+            <Heading fontSize='lg' mt={2} mb={4}>
+              Name:- {product.name}
+            </Heading>
+            <Box mt={2}>
+              <span style={{ fontWeight: "bold" }}>Category:-</span> {product.categories}
+            </Box>
+            <Box mt={2}>
+              <span style={{ fontWeight: "bold" }}>Price:-</span> ₹{product.price}
+            </Box>
+            <Box mt={2}>
+              <span style={{ fontWeight: "bold" }}>Offer Price:-</span> ₹{product.o_price}
+            </Box>
+            <Box mt={2} fontSize='md'>
+              <span style={{ fontWeight: "bold" }}>Quantity:-</span> {product.stock_quantity}
+            </Box>
+          </Box></Flex>
         <Box mt={2} fontSize='md'>
-          <span style={{fontWeight:"bold"}}>Quantity:-</span> {product.stock_quantity}
-        </Box>
-        </Box></Flex>
-        <Box mt={2} fontSize='md'>
-         <span style={{fontWeight:"bold"}}>Description:-</span>  {product.description}
+          <span style={{ fontWeight: "bold" }}>Description:-</span>  {product.description}
         </Box>
         <Box>
-     
-            <Button m={4} colorScheme="blue" onClick={handleEditClick}>
-              Edit
-            </Button>
-       
+
+          <Button m={4} colorScheme={"blue"} onClick={handleEditClick}>
+            Edit
+          </Button>
+
           <Modal finalFocusRef={finalRef} isOpen={editDisclosure.isOpen} onClose={editDisclosure.onClose}>
             <ModalOverlay />
             <ModalContent>
@@ -175,11 +181,11 @@ const ProductDetail = ({ product, handleEdit, handleDelete }) => {
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Product Price</FormLabel>
+                  <FormLabel>Product offer Price</FormLabel>
                   <Input
                     type="number"
-                    name="price"
-                    value={editedProduct.price}
+                    name="o_price"
+                    value={editedProduct.o_price}
                     onChange={handleChange}
                   />
                 </FormControl>
@@ -212,20 +218,20 @@ const ProductDetail = ({ product, handleEdit, handleDelete }) => {
                 </FormControl>
               </ModalBody>
               <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={handleCancelEdit}>
+                <Button colorScheme={"blue"} mr={3} onClick={handleCancelEdit}>
                   Close
                 </Button>
-                <Button colorScheme="teal" onClick={handleSaveEdit}>
+                <Button colorScheme={"teal"} onClick={handleSaveEdit}>
                   Save
                 </Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
-         
-            <Button m={4} colorScheme="red" onClick={handleDeleteClick}>
-              Remove
-            </Button>
-      
+
+          <Button m={4} colorScheme={"red"} onClick={handleDeleteClick}>
+            Remove
+          </Button>
+
           <Modal finalFocusRef={finalRef} isOpen={deleteDisclosure.isOpen} onClose={deleteDisclosure.onClose}>
             <ModalOverlay />
             <ModalContent>
@@ -233,10 +239,10 @@ const ProductDetail = ({ product, handleEdit, handleDelete }) => {
               <ModalCloseButton />
               <ModalBody>Are you sure you want to delete the item?</ModalBody>
               <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={deleteDisclosure.onClose}>
+                <Button colorScheme={"blue"} mr={3} onClick={deleteDisclosure.onClose}>
                   Cancel
                 </Button>
-                <Button colorScheme="red" onClick={handleConfirmDelete}>
+                <Button colorScheme={"red"} onClick={handleConfirmDelete}>
                   Delete
                 </Button>
               </ModalFooter>

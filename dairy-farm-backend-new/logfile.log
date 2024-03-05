@@ -38,3 +38,18 @@
 [2024-03-02T14:35:52.905Z] [INFO] [::1] User logged in: aliciafarmindia@gmail.com
 [2024-03-02T14:42:56.374Z] [INFO] [::1] User logged in: xyz1@gmail.com
 [2024-03-02T14:58:20.467Z] [INFO] [::1] User logged in: aliciafarmindia@gmail.com
+[2024-03-02T16:37:35.120Z] [INFO] [::1] User logged in: shivam298mishra@gmail.com
+[2024-03-02T16:42:14.538Z] [WARN] [::1] Invalid login attempt for user: shivam298mishra@gmail.com m
+[2024-03-02T16:42:25.552Z] [WARN] [::1] Invalid login attempt for user: shivam298mishra@gmail.com m
+[2024-03-02T16:42:41.278Z] [WARN] [::1] Invalid login attempt for user: shivam298mishra@gmail.com m
+[2024-03-02T16:43:06.307Z] [INFO] [::1] User logged in: shivam298mishra@gmail.com
+[2024-03-02T16:45:16.529Z] [INFO] [::1] User logged in: shivam298mishra@gmail.com
+[2024-03-03T12:01:44.214Z] [INFO] [::1] User logged in: aliciafarmindia@gmail.com
+[2024-03-03T12:21:08.153Z] [INFO] [::1] User logged in: aliciafarmindia@gmail.com
+[2024-03-03T12:26:28.081Z] [INFO] [::1] User registered: aliciafarmindia@gmail.com
+[2024-03-03T12:26:51.257Z] [INFO] [::1] User logged in: aliciafarmindia@gmail.com
+[2024-03-03T12:53:46.632Z] [INFO] [::1] User logged in: aliciafarmindia@gmail.com
+[2024-03-03T13:33:04.785Z] [INFO] [::1] User logged in: xyz1@gmail.com
+[2024-03-03T13:33:43.310Z] [INFO] [::1] User logged in: aliciafarmindia@gmail.com
+[2024-03-03T13:38:15.999Z] [INFO] [::1] User logged in: aliciafarmindia@gmail.com
+[2024-03-03T15:39:46.352Z] [INFO] [::1] User logged in: aliciafarmindia@gmail.com

@@ -90,7 +90,7 @@ productRouter.post("/create", checkRole("write"), async (req, res) => {
   const userID = decodedToken.userId;
   console.log("userId:", decodedToken.userId);
   const userId = userID; // Assuming you have user information in the request, adjust this based on your authentication setup
-
+  console.log(payload)
   try {
     // Include the user ID when creating the product
     const product = new ProductModel({

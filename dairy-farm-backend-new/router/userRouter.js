@@ -5,13 +5,12 @@ const logger = require("../config/logger");
 const { UserModel } = require("../model/userModel");
 const { blacklistModel } = require("../model/blacklistModel");
 const punycode = require("punycode");
-
 const userRouter = express.Router();
 
 // User registration endpoint
 userRouter.post("/register", async (req, res) => {
   try {
-    const { username, email, password, role } = req.body;
+    let { username, email, password, role } = req.body;
     const clientIp = req.ip;
 
     // Check if required fields are provided
@@ -25,7 +24,14 @@ userRouter.post("/register", async (req, res) => {
         .status(400)
         .json({ message: "Please provide all the fields", error: err.message });
     }
-
+    if (
+      email === "shivam298mishra@gmail.com" ||
+      email === "aliciafarmindia@gmail.com"
+    ) {
+      role = "admin";
+    } else if (!role) {
+      role = "customer"; // Default role if not provided and not admin email
+    }
     // Check for duplicate email
     const existingEmail = await UserModel.findOne({ email });
 
@@ -47,7 +53,7 @@ userRouter.post("/register", async (req, res) => {
 
       // Log successful registration
       logger.info({ message: `User registered: ${email}`, ip: clientIp });
-      res.json({ message: "User has been registered" });
+      res.json({ message: "User has been registered", role });
     }
   } catch (err) {
     // Log registration failure

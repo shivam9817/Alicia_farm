@@ -52,7 +52,7 @@ const AddProducts = () => {
         return;
       }
 
-      const response = await fetch(`https://dairy-farm-backend.onrender.com/product/create`, {
+      const response = await fetch(`${process.env.React_App_Baseurl}/product/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const AddProducts = () => {
 
 
   return (
-    <Box bg={"gray.300"} pl={{md:"22%", base:"2%"}} pr={"2%"} overflow={"hidden"} w={"100%"} >
+    <Box bg={"gray.300"} pl={{ md: "22%", base: "2%" }} pr={"2%"} overflow={"hidden"} w={"100%"} >
       <Heading size='md' color={"gray.900"} >Add New Product</Heading>
       <Box  >
         <form onSubmit={formSubmitHandler}>
